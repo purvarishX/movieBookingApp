@@ -42,12 +42,13 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <textarea class="form-control" rows="3" placeholder="Short description"
-                                id="desc"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Short description" id="desc"
+                                max="20"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Rate</label>
-                            <input type="text" class="form-control" placeholder="e.g. 250" id="rate" />
+                            <input type="number" class="form-control" placeholder="e.g. 250" id="rate" max="3"
+                                min="2" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Show Times</label>
@@ -109,57 +110,63 @@
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
                                 <label class="form-label">Customer Name</label>
-                                <input type="text" class="form-control" placeholder="e.g. Ananya Patel" />
+                                <input type="text" class="form-control" placeholder="e.g. Ananya Patel"
+                                    id="customerName" />
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="e.g. 9876543210" />
+                                <input type="number" class="form-control" placeholder="e.g. 9876543210" id="phoneNumber"
+                                    maxlength="10" pattern="[0-9]{10}"/>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" placeholder="e.g. ananya@example.com" id="email" />
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="form-label">Choose Movie</label>
-                                <select id="city" class="form-select">
-                                    <option value="sd">Solar Drift</option>
-                                    <option value="eor">Echoes of Rain</option>
-                                    <option value="nh">Neon Harbor</option>
+                                <select class="form-select" id="movieOptions" onchange="populateShowtimes()">
+                                    <option value="sd">Select Movie</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="form-label">Select Showtime</label>
-                                <select class="form-select">
-                                    <option selected>10:00 AM - 12:00 PM</option>
-                                    <option>12:30 PM - 02:30 PM</option>
-                                    <option>04:00 PM - 06:00 PM</option>
-                                    <option>08:00 PM - 10:00 PM</option>
+                                <select class="form-select" id="showtimeOptions">
+                                    <option selected>Select Showtime</option>
                                 </select>
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="form-label">Select Seats</label>
-                                <input type="number" class="form-control" value="2" min="1" max="50" />
+                                <input type="number" class="form-control" value="2" min="1" max="50" id="seats" />
                             </div>
                         </div>
-                        <div class="mt-4 d-flex flex-column flex-md-row gap-3">
-                            <button class="btn btn-brand">Book Tickets</button>
+                        <div class="row">
+                            <div class="col-6 mt-4 d-flex flex-column flex-md-row gap-3">
+                                <button class="btn btn-brand" onclick="bookTickets()">Book Tickets</button>
+                            </div>
+                            <div class="col-6 mt-4 d-flex flex-column flex-md-row gap-3">
+                                <button class="btn btn-brand" onclick="resetBooking()">Reset Booking</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-5">
+                <div class="col-12 col-lg-5" id="bookingSummary">
                     <div class="glass-card p-4 fade-in delay-3">
                         <h2 class="section-title">Booking Summary</h2>
                         <div class="mb-3">
                             <div class="text-muted">Movie</div>
-                            <div class="fw-semibold">Solar Drift</div>
+                            <div class="fw-semibold" id="finalMovie"></div>
                         </div>
                         <div class="mb-3">
                             <div class="text-muted">Showtime</div>
-                            <div class="fw-semibold">10:00 AM - 12:00 PM</div>
+                            <div class="fw-semibold" id="finalShowtime"></div>
                         </div>
                         <div class="mb-3">
                             <div class="text-muted">Seats</div>
-                            <div class="fw-semibold">2 Tickets</div>
+                            <div class="fw-semibold" id="finalSeats"></div>
                         </div>
                         <div class="mb-4">
                             <div class="text-muted">Total</div>
-                            <div class="display-6 fw-semibold">Rs. 28</div>
+                            <div class="display-6 fw-semibold" id="finalAmount"></div>
                         </div>
                     </div>
                 </div>
